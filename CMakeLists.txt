@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.30)
+project(HashTable C)
+set(CMAKE_C_STANDARD 99)
+add_compile_options(-g)
+file(GLOB SOURCES "*.c")
+add_executable(hash_table ${SOURCES})
