@@ -1,19 +1,19 @@
 #include "hash_table.h"
+#include <stdio.h>
 
-void* alloc_int(void *nbr_ptr) {
-    int* nbr = malloc(sizeof(int));
-    nbr = (int*)nbr_ptr;
-    printf("%d\n", *nbr);
-    return nbr;
-}
-
-void* alloc_str(void *str_ptr) {
-    return (void*)strdup((char*)str_ptr);
-}
 
 int main(int argc, char *argv[]) {
-    int nbr = 42;
-    struct hash_entry* entry = new_entry((void*)&nbr, alloc_int, "Hello World", alloc_str);
-    printf("%d: \"%s\"", *(int*)(entry->key), (char*)entry->value);
+    struct hash_entry* entry = new_entry("key","Hello World");
+    printf("%s: \"%s\"", entry->key, (char*)entry->value);
+    free_entry(entry);
+
+    struct hash_table* dict = new_hash_table();
+    free_hash_table(dict);
+
+    char* str = "Redouane";
+    char* str2 = "Imane";
+    printf("%zu\n", hash(str, 101));
+    printf("%zu\n", hash(str2, 101));
+
     return 0;
 }

@@ -1,6 +1,7 @@
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
 
+#include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -16,18 +17,25 @@
     } while (0)
 
 struct hash_entry {
-    void*   key;
-    void*   value;
+    const char*   key;
+    const char*   value;
 };
 
 struct hash_table {
-    int                 size;
-    int                 count;
+    size_t              size;
+    size_t              count;
     struct hash_entry** entries;
 };
 
-struct hash_entry* new_entry(const void* key, void* (*alloc_key)(void*), const void* value, void* (*alloc_value)(void*));
+struct hash_entry* new_entry(const char* key, const char* value);
+struct hash_table* new_hash_table( void );
 
+void free_entry(struct hash_entry* entry);
+void free_hash_table(struct hash_table* ht);
+
+// mad technic: Multiply Add Divide 
+size_t hash(const char* str, size_t table_size);
+size_t string_to_int(const char* str);
 
 
 #endif
